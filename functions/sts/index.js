@@ -5,7 +5,7 @@ const sts = require('qcloud-cos-sts');
 cloud.init()
 
 // 云函数入口函数
-exports.main = async (event, context) => new Promise((resolve, reject) => {
+exports.main = async(event, context) => new Promise((resolve, reject) => {
   const wxContext = cloud.getWXContext()
   const cosOptions = {
     secretId: process.env.secretId,
@@ -24,9 +24,11 @@ exports.main = async (event, context) => new Promise((resolve, reject) => {
           "name/cos:GetObject",
         ],
         'effect': 'allow',
-        'principal': { 'qcs': ['*'] },
+        'principal': {
+          'qcs': ['*']
+        },
         'resource': [
-          'qcs::cos:ap-guangzhou:uid/1253560230:prefix//1253560230/fytphotos/*'
+          'qcs::cos:ap-guangzhou:uid/1253560230:prefix//1253560230/fyt/*'
         ],
       }]
     }
@@ -37,7 +39,7 @@ exports.main = async (event, context) => new Promise((resolve, reject) => {
     secretKey: cosOptions.secretKey,
     policy: cosOptions.policy,
     durationSeconds: 3600
-  }, function (err, credential) {
+  }, function(err, credential) {
     if (err) {
       console.error(err)
       resolve({
